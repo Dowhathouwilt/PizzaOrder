@@ -52,7 +52,7 @@ fun ToppingCell(topping: Topping,
     {
         Checkbox(
             checked = (placement != null),
-            onCheckedChange = { /* TODO */ }
+            onCheckedChange = { onClickTopping()  }
         )
         Column(modifier = Modifier
             .weight(1f, fill = true)
@@ -66,7 +66,6 @@ fun ToppingCell(topping: Topping,
                 Text(
                     text = stringResource(placement.label),
                     style = MaterialTheme.typography.body2
-
                 )
             }
         }
