@@ -19,7 +19,10 @@ import com.example.codapizza.model.Topping
 import com.example.codapizza.model.ToppingPlacement
 
 @Composable
-fun ToppingPlacementDialog(topping: Topping, onDismissRequest: () -> Unit) {
+fun ToppingPlacementDialog(topping: Topping,
+                           onDismissRequest: () -> Unit,
+                           onSetToppingPlacement: (placement: ToppingPlacement?) -> Unit)
+{
     Dialog(onDismissRequest = onDismissRequest ) {
         Card{
             Column {
@@ -33,12 +36,18 @@ fun ToppingPlacementDialog(topping: Topping, onDismissRequest: () -> Unit) {
                 ToppingPlacement.values().forEach { placement ->
                     ToppingPlacementOption(
                         placementName = placement.label,
-                        onClick = { /* TODO */ }
+                        onClick = {
+                            onSetToppingPlacement(placement)
+                            onDismissRequest()
+                        }
                     )
                 }
                 ToppingPlacementOption(
                     placementName = R.string.placement_none,
-                    onClick = { /* TODO */ }
+                    onClick = {
+                        onSetToppingPlacement(null)
+                        onDismissRequest()
+                    }
                 )
             }
         }
