@@ -87,7 +87,13 @@ private fun  ToppingList(
         )
     }
     LazyColumn(modifier = modifier){
-      items(Topping.values()){toppingInColumn ->
+        item {
+            PizzaHeroImage(
+                pizza = pizza,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+        items(Topping.values()){toppingInColumn ->
           ToppingCell(topping = toppingInColumn,
               placement = pizza.toppings[toppingInColumn], onClickTopping = {
                   toppingBeingAdded = toppingInColumn
