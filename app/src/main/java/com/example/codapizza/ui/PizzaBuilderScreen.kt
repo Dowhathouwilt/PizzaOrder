@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -32,22 +34,31 @@ fun PizzaBuilderScreen(
     var pizza by rememberSaveable{
         mutableStateOf(Pizza())
     }
-    Column(modifier = modifier) {
-        ToppingList(
-            pizza = pizza,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-        ){
-            pizza = it
+
+    Scaffold(modifier = modifier ,
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.app_name)) })
+                 } ,
+        content = { innerPadding ->
+            Column(modifier = modifier.padding(innerPadding)) {
+                ToppingList(
+                    pizza = pizza,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = true)
+                ){
+                    pizza = it
+                }
+                OrderButton(
+                    pizza = pizza,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+            }
         }
-        OrderButton(
-            pizza = pizza,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-    }
+    )
 }
 
 @Composable
@@ -68,7 +79,6 @@ private fun OrderButton(
         Text(text = stringResource(id = R.string.place_order_button, price).toUpperCase(Locale.current))
     }
 }
-
 
 @Composable
 private fun  ToppingList(
